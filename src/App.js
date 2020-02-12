@@ -58,16 +58,13 @@ function App() {
         </CardActionArea>
         <CardActions>
           <a href={"https://" + data.strWebsite} target="_blank" rel="noopener noreferrer">
-            Site
+            <i class="fas fa-globe"></i>
           </a>
           <a href={"https://" + data.strFacebook} target="_blank" rel="noopener noreferrer">
-            Facebook
-          </a>
-          <a href={"https://" + data.strInstagram} target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-instagram">Insta</i>
+            <i class="fab fa-facebook-f"></i>
           </a>
           <a href={"https://" + data.strTwitter} target="_blank" rel="noopener noreferrer">
-            Twitter
+            <i class="fab fa-twitter"></i>
           </a>
           <a href={"https://" + data.strLastFMChart} target="_blank" rel="noopener noreferrer">
             <i class="fab fa-lastfm"></i>
