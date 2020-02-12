@@ -5,7 +5,6 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import growl from 'growl-alert';
 import 'growl-alert/dist/growl-alert.css';
 
@@ -40,7 +39,7 @@ function App() {
           if (dataAPI === null || 3) {          
             growl.error({text: "Artista ou Banda não localizado", fadeAway: true, fadeAwayTimeout: 3000});
           } else {
-            dataAPI.map(item => {
+            dataAPI.forEach((item) => {
               setData(item)
               getVideos(item.idArtist)
             });                   
@@ -67,8 +66,7 @@ function App() {
         Botão
       </Button>
       <Card>
-        <CardActionArea>
-          <CardMedia />
+        <CardActionArea>          
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               {data.strArtist}
@@ -81,16 +79,16 @@ function App() {
         </CardActionArea>
         <CardActions>
           <a href={"https://" + data.strWebsite} target="_blank" rel="noopener noreferrer">
-            <i class="fas fa-globe"></i>
+            <i className="fas fa-globe"></i>
           </a>
           <a href={"https://" + data.strFacebook} target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-facebook-f"></i>
+            <i className="fab fa-facebook-f"></i>
           </a>
           <a href={"https://" + data.strTwitter} target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-twitter"></i>
+            <i className="fab fa-twitter"></i>
           </a>
           <a href={"https://" + data.strLastFMChart} target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-lastfm"></i>
+            <i className="fab fa-lastfm"></i>
           </a>
         </CardActions>
       </Card>     
