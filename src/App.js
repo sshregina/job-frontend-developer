@@ -6,6 +6,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
+import { StyleSheet, css } from 'aphrodite';
 
 function App() {
   const [data, setData] = useState([]);  
@@ -22,19 +23,7 @@ function App() {
         setVideos(response.data.mvids)
       })
       .catch(console.error());
-
-       /*  if (dataAPI === null) {
-          alert("Artista ou Banda não localizado");
-        } else {
-          dataAPI.map(item => setData(item));          
-        }
-        setSearchName('')
-      })
-      .catch(console.error()); */
   };
-
-
-
 
   const getName = (name) => {
     axios({
@@ -82,7 +71,9 @@ function App() {
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               {data.strGenre}
-              {data.strCountry}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+            {data.strCountry}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -100,16 +91,58 @@ function App() {
             <i class="fab fa-lastfm"></i>
           </a>
         </CardActions>
-      </Card>     
+      </Card>
+      <ul className={css(styles.music, styles.margin)} >
      {videos.map(item =>
-     <div>
+    <li className={css(styles.cardMusic, styles.margin)}>
       <img src={item.strTrackThumb} alt="imagem do vídeo" width="20%" height="20%"/>
-      <p>{item.strTrack}</p>
-      <a href={item.strMusicVid} target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
-      </div>     
+      <div className={css(styles.info)}>
+        <p className={css(styles.margin)}>{item.strTrack}</p>
+        <a href={item.strMusicVid} target="_blank" rel="noopener noreferrer" className={css(styles.margin)}>
+          <i className="fab fa-youtube" style={{fontSize: 30}}></i>
+        </a>
+      </div>
+    </li>     
     )}  
+    </ul>
     </div>
   );
 }
 
+
+
 export default App;
+
+const styles = StyleSheet.create({
+  cardMusic: {
+    display: 'flex',
+  },
+  music: {
+    padding: '0' 
+  },
+  info: {
+    width: '100%'
+  },
+  margin: {
+    margin: '2%'
+  }
+  // red: {
+  //     backgroundColor: 'red'
+  // },
+
+  // blue: {
+  //     backgroundColor: 'blue'
+  // },
+
+  // hover: {
+  //     ':hover': {
+  //         backgroundColor: 'red'
+  //     }
+  // },
+
+  // small: {
+  //     '@media (min-width: 600px)': {
+  //         backgroundColor: 'red',
+  //     }
+  // }
+});
