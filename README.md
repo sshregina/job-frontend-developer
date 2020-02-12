@@ -100,6 +100,11 @@ Você pode gerar suas próprias API Keys para consumir as APIs, mas se quiser us
 * Um HTML escrito da maneira mais semântica possível (HTML5/5.1)
 * CSS3/4 - Com um pre processador de CSS (a escolha fica a seu critério, mas por aqui utilizamos SASS)
 * Mobile first e layout responsivo
+
+### Como instalar e usar a aplicação
+ 
+* npm install (para instalar as aplicações)
+* npm start  (para visualizar na web)
  
 ## Ferramentas utilizadas:
 - JavaScript (ES6);
