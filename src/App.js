@@ -6,6 +6,8 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
+import growl from 'growl-alert';
+import 'growl-alert/dist/growl-alert.css';
 
 function App() {
   const [data, setData] = useState([]);  
@@ -21,43 +23,34 @@ function App() {
       .then(response => {
         setVideos(response.data.mvids)
       })
-      .catch(console.error());
-
-       /*  if (dataAPI === null) {
-          alert("Artista ou Banda não localizado");
-        } else {
-          dataAPI.map(item => setData(item));          
-        }
-        setSearchName('')
-      })
-      .catch(console.error()); */
+      .catch(console.error())
   };
-
-
-
 
   const getName = (name) => {
-    axios({
-      method: "get",
-      url: `http://theaudiodb.com/api/v1/json/1/search.php?s=${name}`
-    })
-      .then(response => {
-        const dataAPI = response.data.artists;
-        if (dataAPI === null) {
-          alert("Artista ou Banda não localizado");
-        } else {
-          dataAPI.map(item => {
-            setData(item)
-            getVideos(item.idArtist)
-          });                   
-        }                
-        setSearchName('')
+    if (name === "") {
+      growl.error({text: "Insira um nome para pesquisa", fadeAway: true, fadeAwayTimeout: 3000});
+
+    } else {
+      axios({
+        method: "get",
+        url: `http://theaudiodb.com/api/v1/json/1/search.php?s=${name}`
       })
-      .catch(console.error());
-      
+        .then(response => {
+          const dataAPI = response.data.artists;
+          if (dataAPI === null || 3) {          
+            growl.error({text: "Artista ou Banda não localizado", fadeAway: true, fadeAwayTimeout: 3000});
+          } else {
+            dataAPI.map(item => {
+              setData(item)
+              getVideos(item.idArtist)
+            });                   
+          }                
+          setSearchName('')
+        })
+        .catch(console.error());
+    }      
   };
      
-
   return (
     <div className="App">
       <header className="App-header"></header>
