@@ -5,6 +5,7 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
+import { StyleSheet, css } from 'aphrodite';
 import growl from 'growl-alert';
 import 'growl-alert/dist/growl-alert.css';
 
@@ -22,7 +23,7 @@ function App() {
       .then(response => {
         setVideos(response.data.mvids)
       })
-      .catch(console.error())
+      .catch(console.error());
   };
 
   const getName = (name) => {
@@ -73,7 +74,9 @@ function App() {
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               {data.strGenre}
-              {data.strCountry}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+            {data.strCountry}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -91,16 +94,37 @@ function App() {
             <i className="fab fa-lastfm"></i>
           </a>
         </CardActions>
-      </Card>     
+      </Card>
+      <ul className={css(styles.music, styles.margin)} >
      {videos.map(item =>
-     <div>
+    <li className={css(styles.cardMusic, styles.margin)}>
       <img src={item.strTrackThumb} alt="imagem do vídeo" width="20%" height="20%"/>
-      <p>{item.strTrack}</p>
-      <a href={item.strMusicVid} target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
-      </div>     
+      <div className={css(styles.info)}>
+        <p className={css(styles.margin)}>{item.strTrack}</p>
+        <a href={item.strMusicVid} target="_blank" rel="noopener noreferrer" className={css(styles.margin)}>
+          <i className="fab fa-youtube" style={{fontSize: 30}}></i>
+        </a>
+      </div>
+    </li>     
     )}  
+    </ul>
     </div>
   );
 }
 
 export default App;
+
+const styles = StyleSheet.create({
+  cardMusic: {
+    display: 'flex',
+  },
+  music: {
+    padding: '0' 
+  },
+  info: {
+    width: '100%'
+  },
+  margin: {
+    margin: '2%'
+  }
+});
