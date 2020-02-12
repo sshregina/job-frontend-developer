@@ -76,7 +76,7 @@ function App() {
 
       <Card className={css(styles.card)}>
         <CardActionArea className={css(styles.cardArea)}>
-        <img src={data.strArtistClearart} width="20%" />          
+        <img src={data.strArtistClearart} width="40%" alt='Imagem da Banda' />          
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               {data.strArtist}
@@ -89,19 +89,22 @@ function App() {
             </Typography>
           </CardContent>
         </CardActionArea>
+
         <CardActions>
+          <Box className={css(styles.boxweb)}>
           <a href={"https://" + data.strWebsite} target="_blank" rel="noopener noreferrer">
-            <i className="fas fa-globe"></i>
+            <i className="fas fa-globe" style={{color: 'white'}}></i>
           </a>
           <a href={"https://" + data.strFacebook} target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-facebook-f"></i>
+            <i className="fab fa-facebook-f" style={{color: 'white'}}></i>
           </a>
           <a href={"https://" + data.strTwitter} target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-twitter"></i>
+            <i className="fab fa-twitter" style={{color: 'white'}}></i>
           </a>
           <a href={"https://" + data.strLastFMChart} target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-lastfm"></i>
+            <i className="fab fa-lastfm" style={{color: 'white'}}></i>
           </a>
+          </Box>
         </CardActions>
       </Card>
 
@@ -112,7 +115,7 @@ function App() {
       <div className={css(styles.info)}>
         <p className={css(styles.margin)}>{item.strTrack}</p>
         <a href={item.strMusicVid} target="_blank" rel="noopener noreferrer" className={css(styles.margin)}>
-          <i className="fab fa-youtube" style={{fontSize: 30}}></i>
+          <i className="fab fa-youtube" style={{fontSize: 30, color: 'white'}}></i>
         </a>
       </div>
     </li>     
@@ -139,7 +142,14 @@ const styles = StyleSheet.create({
   margin: {
     margin: '2%'
   },
-
+  boxweb:{
+    display: 'flex',
+    justifyContent:'space-between',
+    alignItems:'center',
+    width: '100%',
+    margin:'0 50px',
+      
+  },
   logo: {
     width: '30%',
     display: 'flex',
@@ -154,6 +164,8 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: '#77A612',
+    // display:'flex',
+    alignItems:'center'
   },
   btn: {
     backgroundColor: '#c9d9a7',
@@ -163,12 +175,13 @@ const styles = StyleSheet.create({
     borderRadius: '5px solid',
     margin: 'auto',
   },
+  
   form: {
-    display: 'flex'
+    display: 'flex',
+    marginLeft:'60px'
   },
   box: {
-    backgroundColor: '#c9d9a7',
-    margin: '3px',
+    backgroundColor: '#c9d9a7',  
 
   },
   cardArea: {
