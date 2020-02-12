@@ -5,8 +5,9 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import { StyleSheet, css } from 'aphrodite';
+import growl from 'growl-alert';
+import 'growl-alert/dist/growl-alert.css';
 
 function App() {
   const [data, setData] = useState([]);  
@@ -26,27 +27,30 @@ function App() {
   };
 
   const getName = (name) => {
-    axios({
-      method: "get",
-      url: `http://theaudiodb.com/api/v1/json/1/search.php?s=${name}`
-    })
-      .then(response => {
-        const dataAPI = response.data.artists;
-        if (dataAPI === null) {
-          alert("Artista ou Banda não localizado");
-        } else {
-          dataAPI.map(item => {
-            setData(item)
-            getVideos(item.idArtist)
-          });                   
-        }                
-        setSearchName('')
+    if (name === "") {
+      growl.error({text: "Insira um nome para pesquisa", fadeAway: true, fadeAwayTimeout: 3000});
+
+    } else {
+      axios({
+        method: "get",
+        url: `http://theaudiodb.com/api/v1/json/1/search.php?s=${name}`
       })
-      .catch(console.error());
-      
+        .then(response => {
+          const dataAPI = response.data.artists;
+          if (dataAPI === null || dataAPI === "3") {          
+            growl.error({text: "Artista ou Banda não localizado", fadeAway: true, fadeAwayTimeout: 3000});
+          } else {
+            dataAPI.forEach((item) => {
+              setData(item)
+              getVideos(item.idArtist)
+            });                   
+          }                
+          setSearchName('')
+        })
+        .catch(console.error());
+    }      
   };
      
-
   return (
     <div className="App">
       <header className="App-header"></header>
@@ -63,8 +67,7 @@ function App() {
         Botão
       </Button>
       <Card>
-        <CardActionArea>
-          <CardMedia />
+        <CardActionArea>          
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               {data.strArtist}
@@ -79,16 +82,16 @@ function App() {
         </CardActionArea>
         <CardActions>
           <a href={"https://" + data.strWebsite} target="_blank" rel="noopener noreferrer">
-            <i class="fas fa-globe"></i>
+            <i className="fas fa-globe"></i>
           </a>
           <a href={"https://" + data.strFacebook} target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-facebook-f"></i>
+            <i className="fab fa-facebook-f"></i>
           </a>
           <a href={"https://" + data.strTwitter} target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-twitter"></i>
+            <i className="fab fa-twitter"></i>
           </a>
           <a href={"https://" + data.strLastFMChart} target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-lastfm"></i>
+            <i className="fab fa-lastfm"></i>
           </a>
         </CardActions>
       </Card>
@@ -109,8 +112,6 @@ function App() {
   );
 }
 
-
-
 export default App;
 
 const styles = StyleSheet.create({
@@ -126,23 +127,4 @@ const styles = StyleSheet.create({
   margin: {
     margin: '2%'
   }
-  // red: {
-  //     backgroundColor: 'red'
-  // },
-
-  // blue: {
-  //     backgroundColor: 'blue'
-  // },
-
-  // hover: {
-  //     ':hover': {
-  //         backgroundColor: 'red'
-  //     }
-  // },
-
-  // small: {
-  //     '@media (min-width: 600px)': {
-  //         backgroundColor: 'red',
-  //     }
-  // }
 });
