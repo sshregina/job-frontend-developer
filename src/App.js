@@ -76,7 +76,7 @@ function App() {
 
       <Card className={css(styles.card)}>
         <CardActionArea className={css(styles.cardArea)}>
-        <img src={data.strArtistClearart} width="40%" alt='Imagem da Banda' />          
+        <img src={data.strArtistClearart} width="40%" />          
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               {data.strArtist}
