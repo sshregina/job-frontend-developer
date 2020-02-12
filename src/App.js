@@ -10,6 +10,31 @@ import CardMedia from "@material-ui/core/CardMedia";
 function App() {
   const [data, setData] = useState([]);  
   const [searchName, setSearchName] = useState("");
+  const [videos, setVideos] = useState([]);   
+  
+  const getVideos = (idArtist) => {
+    
+    axios({
+      method: "get",
+      url: `http://theaudiodb.com/api/v1/json/1/mvid.php?i=${idArtist}`
+    })
+      .then(response => {
+        setVideos(response.data.mvids)
+      })
+      .catch(console.error());
+
+       /*  if (dataAPI === null) {
+          alert("Artista ou Banda não localizado");
+        } else {
+          dataAPI.map(item => setData(item));          
+        }
+        setSearchName('')
+      })
+      .catch(console.error()); */
+  };
+
+
+
 
   const getName = (name) => {
     axios({
@@ -21,12 +46,17 @@ function App() {
         if (dataAPI === null) {
           alert("Artista ou Banda não localizado");
         } else {
-          dataAPI.map(item => setData(item));          
-        }
+          dataAPI.map(item => {
+            setData(item)
+            getVideos(item.idArtist)
+          });                   
+        }                
         setSearchName('')
       })
       .catch(console.error());
+      
   };
+     
 
   return (
     <div className="App">
@@ -70,7 +100,14 @@ function App() {
             <i class="fab fa-lastfm"></i>
           </a>
         </CardActions>
-      </Card> 
+      </Card>     
+     {videos.map(item =>
+     <div>
+      <img src={item.strTrackThumb} alt="imagem do vídeo" width="20%" height="20%"/>
+      <p>{item.strTrack}</p>
+      <a href={item.strMusicVid} target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+      </div>     
+    )}  
     </div>
   );
 }
