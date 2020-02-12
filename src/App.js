@@ -36,7 +36,7 @@ function App() {
       })
         .then(response => {
           const dataAPI = response.data.artists;
-          if (dataAPI === null || 3) {          
+          if (dataAPI === null || dataAPI === "3") {          
             growl.error({text: "Artista ou Banda não localizado", fadeAway: true, fadeAwayTimeout: 3000});
           } else {
             dataAPI.forEach((item) => {
