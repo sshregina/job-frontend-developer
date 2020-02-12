@@ -8,6 +8,7 @@ import CardContent from "@material-ui/core/CardContent";
 import { StyleSheet, css } from 'aphrodite';
 import growl from 'growl-alert';
 import 'growl-alert/dist/growl-alert.css';
+import logo from '../src/img/logo.png';
 
 function App() {
   const [data, setData] = useState([]);  
@@ -52,22 +53,30 @@ function App() {
   };
      
   return (
+    <>
+      <header className={css(styles.header)}>
+        <img className={css(styles.logo)} src={logo} alt="Logo Intelimusic" />
+      </header>
+
+      <main className={css(styles.main)}>
     <div className="App">
       <header className="App-header"></header>
-      <form>
-        <Box>
+      <form className={css(styles.form)}>
+        <Box className={css(styles.box)}>
           <TextField
             variant="outlined"
             value={searchName}
             onChange={e => setSearchName(e.target.value)}
           />
         </Box>
-      </form>
-      <Button variant="contained" onClick={() => getName(searchName)}>
-        Botão
+        <Button className={css(styles.btn)} variant="contained" onClick={() => getName(searchName)}>
+        Buscar
       </Button>
-      <Card>
-        <CardActionArea>          
+      </form>
+
+      <Card className={css(styles.card)}>
+        <CardActionArea className={css(styles.cardArea)}>
+        <img src={data.strArtistClearart} width="20%" />          
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               {data.strArtist}
@@ -95,6 +104,7 @@ function App() {
           </a>
         </CardActions>
       </Card>
+
       <ul className={css(styles.music, styles.margin)} >
      {videos.map(item =>
     <li className={css(styles.cardMusic, styles.margin)}>
@@ -109,6 +119,8 @@ function App() {
     )}  
     </ul>
     </div>
+    </main>
+    </>
   );
 }
 
@@ -126,5 +138,43 @@ const styles = StyleSheet.create({
   },
   margin: {
     margin: '2%'
+  },
+
+  logo: {
+    width: '30%',
+    display: 'flex',
+    margin: '1vh 1vh 1vh 36vw',
+  },
+  main: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  card: {
+    backgroundColor: '#77A612',
+  },
+  btn: {
+    backgroundColor: '#c9d9a7',
+    width: '10%',
+    height: '10%',
+    fontSize: '10px',
+    borderRadius: '5px solid',
+    margin: 'auto',
+  },
+  form: {
+    display: 'flex'
+  },
+  box: {
+    backgroundColor: '#c9d9a7',
+    margin: '3px',
+
+  },
+  cardArea: {
+    display: 'flex',
+    justifyContent: 'center',
   }
+
+  //   '@media only screen and (max-width:2000px)': {
 });
